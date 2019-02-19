@@ -22,7 +22,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/cloudfoundry-incubator/candiedyaml"
+	yamlv2 "gopkg.in/yaml.v2"
 	"github.com/mandelsoft/spiff/debug"
 	"github.com/mandelsoft/spiff/dynaml"
 	"github.com/mandelsoft/spiff/flow"
@@ -127,7 +127,7 @@ func merge(templateFilePath string, partial bool, stubFilePaths []string) {
 			if err != nil {
 				flowed = dynaml.ResetUnresolvedNodes(flowed)
 			}
-			yaml, err := candiedyaml.Marshal(flowed)
+			yaml, err := yamlv2.Marshal(flowed)
 			if err != nil {
 				log.Fatalln(fmt.Sprintf("error marshalling manifest%s:", doc), err)
 			}

@@ -6,7 +6,7 @@ import (
 
 	"github.com/mandelsoft/spiff/yaml"
 
-	"github.com/cloudfoundry-incubator/candiedyaml"
+	yamlv2 "gopkg.in/yaml.v2"
 )
 
 func func_format(arguments []interface{}, binding Binding) (interface{}, EvaluationInfo, bool) {
@@ -24,19 +24,19 @@ func format(name string, arguments []interface{}, binding Binding) (interface{},
 	for i, arg := range arguments {
 		switch v := arg.(type) {
 		case []yaml.Node:
-			yaml, err := candiedyaml.Marshal(node(v, nil))
+			yaml, err := yamlv2.Marshal(node(v, nil))
 			if err != nil {
 				log.Fatalln("error marshalling yaml fragment:", err)
 			}
 			args[i] = string(yaml)
 		case map[string]yaml.Node:
-			yaml, err := candiedyaml.Marshal(node(v, nil))
+			yaml, err := yamlv2.Marshal(node(v, nil))
 			if err != nil {
 				log.Fatalln("error marshalling yaml fragment:", err)
 			}
 			args[i] = string(yaml)
 		case TemplateValue:
-			yaml, err := candiedyaml.Marshal(v.Orig)
+			yaml, err := yamlv2.Marshal(v.Orig)
 			if err != nil {
 				log.Fatalln("error marshalling template:", err)
 			}

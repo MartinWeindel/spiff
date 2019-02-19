@@ -2,13 +2,6 @@
 
 
 [[projects]]
-  digest = "1:02d18b868bb9a855f688f36818440170d0e375a7a618942d7fad084f6416e2b0"
-  name = "github.com/cloudfoundry-incubator/candiedyaml"
-  packages = ["."]
-  pruneopts = ""
-  revision = "a41693b7b7afb422c7ecb1028458ab27da047bbb"
-
-[[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
@@ -260,13 +253,13 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
-    "github.com/cloudfoundry-incubator/candiedyaml",
     "github.com/onsi/ginkgo",
     "github.com/onsi/gomega",
     "github.com/onsi/gomega/gbytes",
     "github.com/onsi/gomega/gexec",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
+    "gopkg.in/yaml.v2",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

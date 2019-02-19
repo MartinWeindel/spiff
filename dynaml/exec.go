@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cloudfoundry-incubator/candiedyaml"
+	yamlv2 "gopkg.in/yaml.v2"
 
 	"github.com/mandelsoft/spiff/debug"
 	"github.com/mandelsoft/spiff/yaml"
@@ -81,7 +81,7 @@ func getArg(i int, value interface{}) (string, bool) {
 		if i == 0 || value == nil {
 			return "", false
 		}
-		yaml, err := candiedyaml.Marshal(node(value, nil))
+		yaml, err := yamlv2.Marshal(node(value, nil))
 		if err != nil {
 			log.Fatalln("error marshalling manifest:", err)
 		}

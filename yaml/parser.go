@@ -4,8 +4,11 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/cloudfoundry-incubator/candiedyaml"
+	"io"
 	"reflect"
+
+	"github.com/mandelsoft/spiff/preprocessing"
+	yamlv2 "gopkg.in/yaml.v2"
 )
 
 type NonStringKeyError struct {
@@ -29,13 +32,16 @@ func Parse(sourceName string, source []byte) (Node, error) {
 
 func ParseMulti(sourceName string, source []byte) ([]Node, error) {
 	docs := []Node{}
-	r := bytes.NewBuffer(source)
-	d := candiedyaml.NewDecoder(r)
+	r := preprocessing.NewWrappedReader(bytes.NewBuffer(source), 8192)
+	d := yamlv2.NewDecoder(r)
 
-	for d.HasNext() {
+	for {
 		var parsed interface{}
 		err := d.Decode(&parsed)
 		if err != nil {
+			if err == io.EOF {
+				break
+			}
 			return nil, err
 		}
 		n, err := sanitize(sourceName, parsed)
@@ -81,6 +87,9 @@ func sanitize(sourceName string, root interface{}) (Node, error) {
 		}
 
 		return NewNode(sanitized, sourceName), nil
+
+	case int:
+		return NewNode(int(rootVal), sourceName), nil
 
 	case string, []byte, int64, float64, bool, nil:
 		return NewNode(rootVal, sourceName), nil

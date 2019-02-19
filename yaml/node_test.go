@@ -1,7 +1,7 @@
 package yaml
 
 import (
-	"github.com/cloudfoundry-incubator/candiedyaml"
+	yamlv2 "gopkg.in/yaml.v2"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -12,7 +12,7 @@ var _ = Describe("Node", func() {
 	It("Implements Marshaler", func() {
 		subject := NewNode("hello world", "source/path")
 
-		_, ok := subject.(candiedyaml.Marshaler)
+		_, ok := subject.(yamlv2.Marshaler)
 		Expect(ok).To(BeTrue())
 	})
 
@@ -41,8 +41,7 @@ var _ = Describe("Node", func() {
 			subjectSourceName := "source/path"
 			subject := NewNode(subjectValue, subjectSourceName)
 
-			tag, value, _ := subject.MarshalYAML()
-			Expect(tag).To(Equal(""))
+			value, _ := subject.MarshalYAML()
 			Expect(value).To(Equal(subjectValue))
 		})
 	})

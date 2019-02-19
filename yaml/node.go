@@ -5,11 +5,11 @@ import (
 	"reflect"
 	"regexp"
 
-	"github.com/cloudfoundry-incubator/candiedyaml"
+	yamlv2 "gopkg.in/yaml.v2"
 )
 
 type Node interface {
-	candiedyaml.Marshaler
+	yamlv2.Marshaler
 
 	Value() interface{}
 	SourceName() string
@@ -269,15 +269,15 @@ func (n AnnotatedNode) GetAnnotation() Annotation {
 	return n.Annotation
 }
 
-func (n AnnotatedNode) MarshalYAML() (string, interface{}, error) {
+func (n AnnotatedNode) MarshalYAML() (interface{}, error) {
 	v := n.Value()
 
-	m, ok := v.(candiedyaml.Marshaler)
+	m, ok := v.(yamlv2.Marshaler)
 	for ok {
-		_, v, _ = m.MarshalYAML()
-		m, ok = v.(candiedyaml.Marshaler)
+		v, _ = m.MarshalYAML()
+		m, ok = v.(yamlv2.Marshaler)
 	}
-	return "", v, nil
+	return v, nil
 }
 
 func (n AnnotatedNode) EquivalentToNode(o Node) bool {

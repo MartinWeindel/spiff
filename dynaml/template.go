@@ -55,7 +55,7 @@ type TemplateValue struct {
 	Orig     yaml.Node
 }
 
-func (e TemplateValue) MarshalYAML() (tag string, value interface{}, err error) {
+func (e TemplateValue) MarshalYAML() (value interface{}, err error) {
 	return e.Orig.MarshalYAML()
 }
 

@@ -23,7 +23,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/cloudfoundry-incubator/candiedyaml"
+	yamlv2 "gopkg.in/yaml.v2"
 	"github.com/mandelsoft/spiff/compare"
 	"github.com/mandelsoft/spiff/yaml"
 )
@@ -112,7 +112,7 @@ func diff(aFilePath, bFilePath string, separator string) {
 				fmt.Println("Difference in", doc, strings.Join(diff.Path, "."))
 
 				if diff.A != nil {
-					ayaml, err := candiedyaml.Marshal(diff.A)
+					ayaml, err := yamlv2.Marshal(diff.A)
 					if err != nil {
 						panic(err)
 					}
@@ -121,7 +121,7 @@ func diff(aFilePath, bFilePath string, separator string) {
 				}
 
 				if diff.B != nil {
-					byaml, err := candiedyaml.Marshal(diff.B)
+					byaml, err := yamlv2.Marshal(diff.B)
 					if err != nil {
 						panic(err)
 					}

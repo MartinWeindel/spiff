@@ -220,7 +220,7 @@ func flowMap(root yaml.Node, env dynaml.Binding) yaml.Node {
 		key := sortedKeys[i]
 		val := rootMap[key]
 
-		if key == "<<" {
+		if key == yaml.MERGE_OP {
 			_, initial := val.Value().(string)
 			base := flow(val, env, false)
 			debug.Debug("flow to %#v\n", base.Value())
@@ -444,7 +444,7 @@ func processMerges(orig yaml.Node, root []yaml.Node, env dynaml.Binding) (interf
 					}
 				}
 				newMap := make(map[string]yaml.Node)
-				newMap["<<"] = result
+				newMap[yaml.MERGE_OP] = result
 				val = yaml.SubstituteNode(newMap, orig)
 				process = false
 			} else {

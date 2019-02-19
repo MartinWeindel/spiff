@@ -8,6 +8,8 @@ import (
 	"github.com/mandelsoft/spiff/debug"
 )
 
+const MERGE_OP = "__" // "<<" is replaced by "__" during preprocessing
+
 var listIndex = regexp.MustCompile(`^\[(\d+)\]$`)
 
 func Find(root Node, path ...string) (Node, bool) {
@@ -137,7 +139,7 @@ func UnresolvedListEntryMerge(node Node) (Node, bool) {
 	subMap, ok := node.Value().(map[string]Node)
 	if ok {
 		if len(subMap) == 1 {
-			inlineNode, ok := subMap["<<"]
+			inlineNode, ok := subMap[MERGE_OP]
 			if ok {
 				return inlineNode, true
 			}
@@ -147,7 +149,7 @@ func UnresolvedListEntryMerge(node Node) (Node, bool) {
 }
 
 func IsMapResolved(m map[string]Node) bool {
-	return m["<<"] == nil
+	return m[MERGE_OP] == nil
 }
 
 func IsListResolved(l []Node) bool {
