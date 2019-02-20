@@ -7,7 +7,6 @@ import (
 	"io"
 	"reflect"
 
-	"github.com/mandelsoft/spiff/preprocessing"
 	yamlv2 "gopkg.in/yaml.v2"
 )
 
@@ -32,7 +31,7 @@ func Parse(sourceName string, source []byte) (Node, error) {
 
 func ParseMulti(sourceName string, source []byte) ([]Node, error) {
 	docs := []Node{}
-	r := preprocessing.NewWrappedReader(bytes.NewBuffer(source), 8192)
+	r := bytes.NewBuffer(source)
 	d := yamlv2.NewDecoder(r)
 
 	for {

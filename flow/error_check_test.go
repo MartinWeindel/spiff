@@ -167,7 +167,7 @@ node:
   - <<: (( a "." ) ))
 `)
 		Expect(source).To(FlowToErr(
-			`	(( a "." ) ))	in test	node.[0].__	()	*unparseable expression`,
+			`	(( a "." ) ))	in test	node.[0].<<	()	*unparseable expression`,
 		))
 	})
 
@@ -178,7 +178,7 @@ node:
   <<: (( a "." ) ))
 `)
 		Expect(source).To(FlowToErr(
-			`	(( a "." ) ))	in test	node.__	()	*unparseable expression`,
+			`	(( a "." ) ))	in test	node.<<	()	*unparseable expression`,
 		))
 	})
 })

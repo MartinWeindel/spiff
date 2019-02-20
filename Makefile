@@ -19,8 +19,8 @@ spiff_linux_amd64.zip: ensure
 
 ensure:
 	dep ensure $(VERBOSE)
-	# restore patched version of candiedyaml/decode.go
-	git checkout -- vendor/github.com/cloudfoundry-incubator/candiedyaml/decode.go
+	# patch yaml parser to resolve conflict with spiff merge operator `<<:`
+	sed -i.bak 's/n.value == "<<"/n.value == "<<<<"/' vendor/gopkg.in/yaml.v2/decode.go
 
 spiff_darwin_amd64.zip: ensure
 	GOOS=darwin GOARCH=amd64 go build -o spiff++/spiff++ .

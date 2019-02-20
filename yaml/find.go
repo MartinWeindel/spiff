@@ -8,7 +8,7 @@ import (
 	"github.com/mandelsoft/spiff/debug"
 )
 
-const MERGE_OP = "__" // "<<" is replaced by "__" during preprocessing
+const MERGE_OP = "<<"
 
 var listIndex = regexp.MustCompile(`^\[(\d+)\]$`)
 
