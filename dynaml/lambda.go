@@ -177,7 +177,7 @@ func (e LambdaValue) Evaluate(args []interface{}, binding Binding, locally bool)
 	debug.Debug("LAMBDA CALL: effective local %+v\n", inp)
 	value, info, ok := e.lambda.E.Evaluate(binding.WithLocalScope(inp), locally)
 	if !ok {
-		debug.Debug("failed LAMBDA CALL: %s", info.Issue)
+		debug.Debug("failed LAMBDA CALL: %s", info.Issue.Issue)
 		nested := info.Issue
 		info.SetError("evaluation of lambda expression failed: %s: %s", e, short(inp, false))
 		info.Issue.Nested = append(info.Issue.Nested, nested)

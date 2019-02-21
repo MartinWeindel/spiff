@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path"
 	"strings"
 
 	"github.com/cloudfoundry-incubator/candiedyaml"
@@ -32,7 +33,7 @@ import (
 
 var asJSON bool
 var partial bool
-var path string
+var outputPath string
 var selection []string
 var split bool
 
@@ -49,7 +50,7 @@ var mergeCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		merge(args[0], partial, asJSON, split, path, selection, args[1:])
+		merge(args[0], partial, asJSON, split, outputPath, selection, args[1:])
 	},
 }
 
@@ -62,7 +63,7 @@ func init() {
 
 	mergeCmd.Flags().BoolVar(&partial, "partial", false, "Allow partial evaluation only")
 
-	mergeCmd.Flags().StringVar(&path, "path", "", "output is taken from given path")
+	mergeCmd.Flags().StringVar(&outputPath, "path", "", "output is taken from given path")
 
 	mergeCmd.Flags().BoolVar(&split, "split", false, "if the output is alist it will be split into separate documents")
 

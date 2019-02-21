@@ -25,7 +25,7 @@ func Equals(a, b Node, path []string) (bool, string) {
 	case []Node:
 		vb := b.Value().([]Node)
 		if len(va) != len(vb) {
-			return false, fmt.Sprintf("list length mismatch %d!=%s at %+v", len(va), len(vb), path)
+			return false, fmt.Sprintf("list length mismatch %d!=%d at %+v", len(va), len(vb), path)
 		}
 		for i, v := range va {
 			if b, r := Equals(v, vb[i], append(path, fmt.Sprintf("[%d]", i))); !b {

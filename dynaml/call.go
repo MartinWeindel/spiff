@@ -41,7 +41,7 @@ func (e CallExpr) Evaluate(binding Binding, locally bool) (interface{}, Evaluati
 	}
 
 	if !okf {
-		debug.Debug("failed to resolve function: %s\n", info.Issue)
+		debug.Debug("failed to resolve function: %s\n", info.Issue.Issue)
 		return nil, info, false
 	}
 
